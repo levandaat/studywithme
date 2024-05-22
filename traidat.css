@@ -1,0 +1,84 @@
+/* CSS hiện tại */
+body {
+    background-color: #101227;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-size: 12px;
+    position: relative;
+}
+
+.planet {
+    width: 30em;
+    height: 30em;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 
+    0 0 5em 0 #fed84c80,
+    0 0 20em 4em #e8a55233,
+    0 0 55em 8em #ff4d4d1a;
+    position: relative;
+}
+
+.satellite, .satellite::after {
+    content: "";
+    position: absolute;
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+}
+
+.satellite {
+   background-color: #ffedd1;
+   box-shadow: -2em 0 5em -1em white;
+   overflow: hidden;
+   transition: 250ms;
+   left: 32em;
+   transform: rotate(20deg);
+   animation: round 5s infinite ease-in-out;
+}
+
+.satellite::after {
+    background: #262938;
+    width: 2.5em;
+    left: 2.5em;
+    box-shadow: 0 0 0.75em 0.95em #262938;
+    animation: shadow 5s infinite ease-in-out;
+}
+
+/* Đồng hồ */
+.clock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border: 10px solid #d43232;
+    border-radius: 50%;
+}
+
+.hour, .minute, .second {
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    background: #ad0707;
+    top: 50%;
+    transform-origin: 100%;
+}
+
+.hour {
+    transform: rotate(30deg);
+}
+
+.minute {
+    transform: rotate(6deg);
+}
+
+.second {
+    background: #000000;
+    transform: rotate(6deg);
+    z-index: 2;
+}
