@@ -48,37 +48,163 @@ body {
     animation: shadow 5s infinite ease-in-out;
 }
 
-/* Đồng hồ */
-.clock {
+@keyframes shadow {
+    0% {
+        width: 2.5em;
+        left: 0;
+    }
+    25% {
+        width: 5em;
+        left: 0;
+    }
+    50% {
+        width: 2.5em;
+        left: 2.5em;
+    }
+    75% {
+        width: 0em;
+        left: 5em;
+    }
+    80% {
+        width: 0;
+        left: 0 0 0.55em 0.75em #262938;
+    }
+    100% {
+        width: 2.5em;
+        left: 0;
+    }
+}
+
+@keyframes round {
+    0%,
+    100% {
+        top: 2em;
+        left: -15em;
+        box-shadow: -2em 0 5em 0.5em #c6836466;
+        z-index: 2;
+    }
+    25% {
+        box-shadow: 0 0 3em 1em #412104b5;
+    }
+    75% {
+        box-shadow: 0 0 3em 1em black;
+    }
+    48% {
+        z-index: 2;
+    }
+    50% {
+        left: 40em;
+        top: 20em;
+        z-index: -1;
+        box-shadow: 2em 0 5em 0.5em #845a4682;
+    }
+    99% {
+        z-index: -1;
+    }
+}
+
+/* Đồng hồ số */
+.digital-clock {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    border: 10px solid #d43232;
-    border-radius: 50%;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
 }
 
-.hour, .minute, .second {
+/* Ngày tháng năm */
+.date {
     position: absolute;
-    width: 50%;
-    height: 2px;
-    background: #ad0707;
-    top: 50%;
-    transform-origin: 100%;
+    top: 20px;
+    left: 20px;
+    color: #fff;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
 }
 
-.hour {
-    transform: rotate(30deg);
+/* Đồng hồ bấm giờ */
+.stopwatch {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: #fff;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
 }
 
-.minute {
-    transform: rotate(6deg);
+/* Đồng hồ đếm ngược */
+.countdown-timer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fff;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
 }
 
-.second {
-    background: #000000;
-    transform: rotate(6deg);
-    z-index: 2;
+/* Đồng hồ đếm ngược mới */
+.countdown-timer-new {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    color: #fff;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
 }
+
+/* Nút bấm */
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+/* Khung cho đồng hồ đếm ngược mới */
+.countdown-timer-new {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    color: #fff;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.6); /* Nền trong suốt với màu đen nhạt */
+    border: 2px solid #fff; /* Đường viền trắng */
+    border-radius: 10px; /* Bo góc để mềm mại hơn */
+    padding: 20px; /* Khoảng cách bên trong */
+    text-align: center; /* Canh giữa văn bản */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Bóng đổ nhẹ */
+    backdrop-filter: blur(5px); /* Làm nền mờ đi một chút */
+}
+
+/* Nút bấm bên trong bộ đếm ngược mới */
+.countdown-timer-new .button {
+    background-color: #2196F3; /* Màu nền của nút */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.countdown-timer-new .button:hover {
+    background-color: #1976D2; /* Màu nền khi di chuột qua nút */
+}
+
+.countdown-timer-new .button:active {
+    background-color: #1565C0; /* Màu nền khi nhấn nút */
+}
+
