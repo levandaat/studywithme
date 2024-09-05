@@ -1,172 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body {
-            background-color: #101227;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-            font-size: 12px;
-            position: relative;
-        }
-        .planet {
-            width: 30em;
-            height: 30em;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 
-            0 0 5em 0 #fed84c80,
-            0 0 20em 4em #e8a55233,
-            0 0 55em 8em #ff4d4d1a;
-            position: relative;
-        }
-
-        .satellite, .satellite::after {
-            content: "";
-            position: absolute;
-            width: 5em;
-            height: 5em;
-            border-radius: 50%;
-        }
-
-        .satellite {
-            background-color: #ffedd1;
-            box-shadow: -2em 0 5em -1em white;
-            overflow: hidden;
-            transition: 250ms;
-            left: 32em;
-            transform: rotate(20deg);
-            animation: round 5s infinite ease-in-out;
-        }
-        .satellite::after {
-            background: #262938;
-            width: 2.5em;
-            left: 2.5em;
-            box-shadow: 0 0 0.75em 0.95em #262938;
-            animation: shadow 5s infinite ease-in-out;
-        }
-        @keyframes shadow {
-            0% {
-                width: 2.5em;
-                left: 0;
-            }
-            25% {
-                width: 5em;
-                left: 0;
-            }
-            50% {
-                width: 2.5em;
-                left: 2.5em;
-            }
-            75% {
-                width: 0em;
-                left: 5em;
-            }
-            80% {
-                width: 0;
-                left: 0 0 0.55em 0.75em #262938;
-            }
-            100% {
-                width: 2.5em;
-                left: 0;
-            }
-        }
-        @keyframes round {
-            0%,
-            100% {
-                top: 2em;
-                left: -15em;
-                box-shadow: -2em 0 5em 0.5em #c6836466;
-                z-index: 2;
-            }
-            25% {
-                box-shadow: 0 0 3em 1em #412104b5;
-            }
-            75% {
-                box-shadow: 0 0 3em 1em black;
-            }
-            48% {
-                z-index: 2;
-            }
-            50% {
-                left: 40em;
-                top: 20em;
-                z-index: -1;
-                box-shadow: 2em 0 5em 0.5em #845a4682;
-            }
-            99% {
-                z-index: -1;
-            }
-        }
-
-        /* Đồng hồ */
-        .digital-clock {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: #fff;
-            font-size: 25px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Ngày tháng năm */
-        .date {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: #fff;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Đồng hồ bấm giờ */
-        .stopwatch {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            color: #fff;
-            font-size: 25px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Đồng hồ đếm ngược */
-        .countdown-timer {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #fff;
-            font-size: 25px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Nút bấm */
-        .button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="traidat.css">
 </head>
 <body>
     <div class="planet">
         <div class="satellite"></div>
     </div>
 
-    <!-- Đồng hồ -->
+    <!-- Đồng hồ số -->
     <div class="digital-clock">
         <span id="digital-clock-display"></span>
     </div>
@@ -182,140 +27,19 @@
     </div>
 
     <!-- Đồng hồ đếm ngược -->
-    <div class="countdown-timer" id="countdown-timer">
+    <div class="countdown-timer">
         <span id="countdown-display">02:00:00.000</span><br>
         <button class="button" id="startCountdown">Start</button>
         <button class="button" id="pauseCountdown">Pause</button>
         <button class="button" id="resetCountdown">Reset</button>
     </div>
 
-    <script>
-        var stopwatchDisplay = document.getElementById("stopwatch-display");
-        var startButton = document.getElementById("startStopwatch");
-        var pauseButton = document.getElementById("pauseStopwatch");
-        var timer;
-        var isRunning = false;
-        var hours = 0;
-        var minutes = 0;
-        var seconds = 0;
-        var milliseconds = 0; // Thêm biến milliseconds
+    <!-- Đồng hồ đếm ngược mới -->
+    <div class="countdown-timer-new">
+    <div id="countdown-text">KÌ THI TỐT NGHIỆP THPT 2025 CÒN LẠI...</div>
+        <span id="countdown-display-new">Calculating...</span>
+    </div>
 
-        function updateStopwatch() {
-            milliseconds += 10; // Cập nhật mỗi 10 milliseconds (0.01 giây)
-            if (milliseconds >= 1000) {
-                milliseconds = 0;
-                seconds++;
-                if (seconds >= 60) {
-                    seconds = 0;
-                    minutes++;
-                    if (minutes >= 60) {
-                        minutes = 0;
-                        hours++;
-                    }
-                }
-            }
-            stopwatchDisplay.innerText = (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + "." + (milliseconds < 10 ? "00" : (milliseconds < 100 ? "0" : "")) + milliseconds;
-        }
-
-        startButton.addEventListener("click", function() {
-            if (!isRunning) {
-                timer = setInterval(updateStopwatch, 10); // Cập nhật mỗi 10 milliseconds
-                isRunning = true;
-            }
-        });
-
-        pauseButton.addEventListener("click", function() {
-            clearInterval(timer);
-            isRunning = false;
-        });
-
-        function updateDigitalClock() {
-            var now = new Date();
-            var hours = now.getHours();
-            var minutes = now.getMinutes();
-            var seconds = now.getSeconds();
-            
-            hours = (hours < 10 ? "0" : "") + hours;
-            minutes = (minutes < 10 ? "0" : "") + minutes;
-            seconds = (seconds < 10 ? "0" : "") + seconds;
-            
-            document.getElementById("digital-clock-display").innerText = hours + ":" + minutes + ":" + seconds;
-        }
-
-        function updateDate() {
-            var now = new Date();
-            var date = now.getDate();
-            var month = now.getMonth() + 1;
-            var year = now.getFullYear();
-            
-            document.getElementById("date-display").innerText = date + "/" + month + "/" + year;
-        }
-
-        // Update the digital clock every second
-        setInterval(updateDigitalClock, 1000);
-
-        // Update the date once per minute
-        setInterval(updateDate, 60000);
-        
-        // Initial update
-        updateDate();
-
-
-        // Đồng hồ đếm ngược
-        var countdownDisplay = document.getElementById("countdown-display");
-        var startCountdownButton = document.getElementById("startCountdown");
-        var pauseCountdownButton = document.getElementById("pauseCountdown");
-        var resetCountdownButton = document.getElementById("resetCountdown");
-        var countdownTimer;
-        var countdownHours = 2;
-        var countdownMinutes = 0;
-        var countdownSeconds = 0;
-        var countdownMilliseconds = 0; // Thêm biến countdownMilliseconds
-
-        function updateCountdown() {
-            countdownMilliseconds -= 10; // Giảm 10 milliseconds (0.01 giây)
-            if (countdownMilliseconds < 0) {
-                countdownMilliseconds = 999;
-                countdownSeconds--;
-                if (countdownSeconds < 0) {
-                    countdownSeconds = 59;
-                    countdownMinutes--;
-                    if (countdownMinutes < 0) {
-                        countdownMinutes = 59;
-                        countdownHours--;
-                        if (countdownHours < 0) {
-                            // Countdown is over
-                            clearInterval(countdownTimer);
-                            alert("Countdown finished!");
-                            return;
-                        }
-                    }
-                }
-            }
-            countdownDisplay.innerText = (countdownHours < 10 ? "0" : "") + countdownHours + ":" + (countdownMinutes < 10 ? "0" : "") + countdownMinutes + ":" + (countdownSeconds < 10 ? "0" : "") + countdownSeconds + "." + (countdownMilliseconds < 10 ? "00" : (countdownMilliseconds < 100 ? "0" : "")) + countdownMilliseconds;
-        }
-
-        startCountdownButton.addEventListener("click", function() {
-            if (!countdownTimer) {
-                countdownTimer = setInterval(updateCountdown, 10); // Cập nhật mỗi 10 milliseconds
-            }
-        });
-
-        pauseCountdownButton.addEventListener("click", function() {
-            clearInterval(countdownTimer);
-            countdownTimer = null;
-        });
-
-        resetCountdownButton.addEventListener("click", function() {
-            clearInterval(countdownTimer);
-            countdownTimer = null;
-            countdownHours = 2;
-            countdownMinutes = 0;
-            countdownSeconds = 0;
-            countdownMilliseconds = 0;
-            countdownDisplay.innerText = "02:00:00.000";
-        });
-
-    </script>
+    <script src="traidat.js"></script>
 </body>
 </html>
